@@ -1,113 +1,294 @@
-import Image from 'next/image'
+"use client";
+import React, { useRef } from "react";
+import {
+	createTheme,
+	NextUIProvider,
+	Input,
+	useTheme,
+	Switch,
+	Dropdown,
+	Textarea,
+	Button,
+	Loading,
+} from "@nextui-org/react";
+import Image from "next/image";
+import {
+	ThemeProvider as NextThemesProvider,
+	useTheme as useNextTheme,
+} from "next-themes";
+import { Configuration, OpenAIApi } from "openai";
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+	const darkTheme = createTheme({
+		type: "dark",
+		theme: {},
+	});
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+	const lightTheme = createTheme({
+		type: "light",
+		theme: {},
+	});
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+	const { setTheme } = useNextTheme();
+	const { isDark, type } = useTheme();
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+	const [selected, setSelected] = React.useState(new Set(["Short"]));
+	const [tone, setTone] = React.useState(new Set(["Casual"]));
+	const [gender, setGender] = React.useState(new Set(["Male"]));
+	const [relationship, setRelationship] = React.useState(
+		new Set(["Managed directly"])
+	);
+	const [loading, setLoading] = React.useState(false);
+	const [generated, setGenerated] = React.useState("");
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
+	const title = useRef(null);
+	const companyName = useRef(null);
+	const recName = useRef(null);
+	const skillset = useRef(null);
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+	async function onSubmit() {
+		event?.preventDefault();
+		setGenerated("");
+		console.log(selected.values().next().value);
+		const prompt = `
+    can you write me a linkedin recommendation with the following parameters:
+    Tone: ${tone.values().next().value}
+    Length: ${selected.values().next().value}
+    Gender: ${gender.values().next().value}
+    Name: ${recName.current!.value}
+    Title: ${title.current!.value}
+    Company Name: ${companyName.current!.value}
+    Relationship: ${relationship.values().next().value}
+    skillsets: ${skillset.current!.value}
+    `;
+		const configuration = new Configuration({
+			organization: "org-ctBzyynSlfNtOwHI3gkiJLKs",
+			apiKey: process.env.OPENAI_API_KEY,
+		});
+		delete configuration.baseOptions.headers["User-Agent"];
+
+		const openai = new OpenAIApi(configuration);
+		setLoading(true);
+		const response = await openai
+			.createChatCompletion({
+				model: "gpt-3.5-turbo",
+				messages: [{ role: "user", content: prompt }],
+			})
+			.then((response) => {
+				setLoading(false);
+				setGenerated(response.data.choices[0].message!.content);
+			});
+	}
+
+	return (
+		<NextThemesProvider
+			defaultTheme="system"
+			attribute="class"
+			value={{
+				dark: lightTheme.className,
+			}}
+		>
+			<NextUIProvider>
+				<main className="flex min-h-screen flex-col p-24">
+					<form
+						className="grid grid-cols-2 items-center gap-4"
+						onSubmit={onSubmit}
+					>
+						<div className="flex justify-between">
+							<div>
+								<p>Tone</p>
+								<Dropdown>
+									<Dropdown.Button flat>{tone}</Dropdown.Button>
+									<Dropdown.Menu
+										aria-label="Static Actions"
+										disallowEmptySelection
+										selectionMode="single"
+										selectedKeys={tone}
+										onSelectionChange={setTone}
+									>
+										<Dropdown.Item key="Casual">Casual</Dropdown.Item>
+										<Dropdown.Item key="Professional">
+											Professional
+										</Dropdown.Item>
+										<Dropdown.Item key="Witty">Witty</Dropdown.Item>
+										<Dropdown.Item key="Joyful">Joyful</Dropdown.Item>
+									</Dropdown.Menu>
+								</Dropdown>
+							</div>
+
+							<div>
+								<p>Length</p>
+								<Dropdown>
+									<Dropdown.Button flat>{selected}</Dropdown.Button>
+									<Dropdown.Menu
+										aria-label="Static Actions"
+										disallowEmptySelection
+										selectionMode="single"
+										selectedKeys={selected}
+										onSelectionChange={setSelected}
+									>
+										<Dropdown.Item key="Very Short">Very Short</Dropdown.Item>
+										<Dropdown.Item key="Short">Short</Dropdown.Item>
+										<Dropdown.Item key="Medium">Medium</Dropdown.Item>
+										<Dropdown.Item key="Long">Long</Dropdown.Item>
+									</Dropdown.Menu>
+								</Dropdown>
+							</div>
+							<div>
+								<p>Gender</p>
+								<Dropdown>
+									<Dropdown.Button flat>{gender}</Dropdown.Button>
+									<Dropdown.Menu
+										aria-label="Static Actions"
+										disallowEmptySelection
+										selectionMode="single"
+										selectedKeys={gender}
+										onSelectionChange={setGender}
+									>
+										<Dropdown.Item key="CasuaMale">Male</Dropdown.Item>
+										<Dropdown.Item key="Female">Female</Dropdown.Item>
+									</Dropdown.Menu>
+								</Dropdown>
+							</div>
+							<div>
+								<p>Relationship</p>
+								<Dropdown>
+									<Dropdown.Button flat>{relationship}</Dropdown.Button>
+									<Dropdown.Menu
+										aria-label="Static Actions"
+										disallowEmptySelection
+										selectionMode="single"
+										selectedKeys={relationship}
+										onSelectionChange={setRelationship}
+									>
+										<Dropdown.Item
+											css={{
+												innerHeight: "auto",
+												marginTop: "0.5rem",
+												marginBottom: "0.5rem",
+											}}
+											key="Managed directly"
+										>
+											Managed directly
+										</Dropdown.Item>
+										<Dropdown.Item key="Reported directly">
+											Reported directly
+										</Dropdown.Item>
+										<Dropdown.Item
+											css={{
+												height: "auto",
+												marginTop: "0.5rem",
+												marginBottom: "0.5rem",
+											}}
+											key="Senior but did not manage directly"
+										>
+											Senior but did not manage directly
+										</Dropdown.Item>
+										<Dropdown.Item
+											css={{
+												height: "auto",
+												marginTop: "0.5rem",
+												marginBottom: "0.5rem",
+											}}
+											key="Senior to you but did not manage directly"
+										>
+											Senior to you but did not manage directly
+										</Dropdown.Item>
+										<Dropdown.Item
+											css={{
+												height: "auto",
+												marginTop: "0.5rem",
+												marginBottom: "0.5rem",
+											}}
+											key="Work with in the same group"
+										>
+											Work with in the same group
+										</Dropdown.Item>
+										<Dropdown.Item
+											css={{
+												height: "auto",
+												marginTop: "0.5rem",
+												marginBottom: "0.5rem",
+											}}
+											key="Work with in different group"
+										>
+											Work with in different group
+										</Dropdown.Item>
+										<Dropdown.Item
+											css={{
+												height: "auto",
+												marginTop: "0.5rem",
+												marginBottom: "0.5rem",
+											}}
+											key="Work with but in a different company"
+										>
+											Work with but in a different company
+										</Dropdown.Item>
+										<Dropdown.Item
+											css={{
+												height: "auto",
+												marginTop: "0.5rem",
+												marginBottom: "0.5rem",
+											}}
+											key="Was a client"
+										>
+											Was a client
+										</Dropdown.Item>
+										<Dropdown.Item
+											css={{
+												height: "auto",
+												marginTop: "0.5rem",
+												marginBottom: "0.5rem",
+											}}
+											key="Taught"
+										>
+											Taught
+										</Dropdown.Item>
+										<Dropdown.Item
+											css={{
+												height: "auto",
+												marginTop: "0.5rem",
+												marginBottom: "0.5rem",
+											}}
+											key="Mentored"
+										>
+											Mentored
+										</Dropdown.Item>
+										<Dropdown.Item
+											css={{
+												height: "auto",
+												marginTop: "0.5rem",
+												marginBottom: "0.5rem",
+											}}
+											key="Studied together"
+										>
+											Studied together
+										</Dropdown.Item>
+									</Dropdown.Menu>
+								</Dropdown>
+							</div>
+						</div>
+						<div></div>
+						<Input ref={title} label="Title"></Input>
+						<Input ref={companyName} label="Company Name"></Input>
+						<Input ref={recName} label="Name"></Input>
+						<Input ref={skillset} label="Skillsets"></Input>
+						<Button className="col-span-2" color="gradient" type="submit">
+							{loading ? <Loading color="currentColor" size="sm" /> : "Submit"}
+						</Button>
+					</form>
+					<div className="mt-4">
+						<Textarea
+							readOnly
+							disabled
+							css={{ width: "100%", color: "Black" }}
+							placeholder="Generated Prompt"
+							rows={4}
+							value={generated}
+						/>
+					</div>
+				</main>
+			</NextUIProvider>
+		</NextThemesProvider>
+	);
 }

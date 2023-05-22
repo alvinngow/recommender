@@ -280,7 +280,6 @@ export default function Home() {
 					<div className="mt-4">
 						<Textarea
 							readOnly
-							disabled
 							css={{ width: "100%", color: "Black" }}
 							placeholder="Generated Prompt"
 							rows={4}

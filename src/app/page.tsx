@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef } from "react";
+
 import {
 	createTheme,
 	NextUIProvider,
@@ -32,12 +33,10 @@ export default function Home() {
 	const { setTheme } = useNextTheme();
 	const { isDark, type } = useTheme();
 
-	const [selected, setSelected] = React.useState(new Set(["Short"]));
-	const [tone, setTone] = React.useState(new Set(["Casual"]));
-	const [gender, setGender] = React.useState(new Set(["Male"]));
-	const [relationship, setRelationship] = React.useState(
-		new Set(["Managed directly"])
-	);
+	const [selected, setSelected] = React.useState("Short");
+	const [tone, setTone] = React.useState("Casual");
+	const [gender, setGender] = React.useState("Male");
+	const [relationship, setRelationship] = React.useState("Managed directly");
 	const [loading, setLoading] = React.useState(false);
 	const [generated, setGenerated] = React.useState("");
 
@@ -49,16 +48,15 @@ export default function Home() {
 	async function onSubmit() {
 		event?.preventDefault();
 		setGenerated("");
-		console.log(selected.values().next().value);
 		const prompt = `
     can you write me a linkedin recommendation with the following parameters:
-    Tone: ${tone.values().next().value}
-    Length: ${selected.values().next().value}
-    Gender: ${gender.values().next().value}
+    Tone: ${tone}
+    Length: ${selected}
+    Gender: ${gender}
     Name: ${recName.current!.value}
     Title: ${title.current!.value}
     Company Name: ${companyName.current!.value}
-    Relationship: ${relationship.values().next().value}
+    Relationship: ${relationship}
     skillsets: ${skillset.current!.value}
     `;
 		const configuration = new Configuration({
@@ -104,7 +102,7 @@ export default function Home() {
 										disallowEmptySelection
 										selectionMode="single"
 										selectedKeys={tone}
-										onSelectionChange={setTone}
+										onSelectionChange={(e) => setTone(e as string)}
 									>
 										<Dropdown.Item key="Casual">Casual</Dropdown.Item>
 										<Dropdown.Item key="Professional">
@@ -125,7 +123,7 @@ export default function Home() {
 										disallowEmptySelection
 										selectionMode="single"
 										selectedKeys={selected}
-										onSelectionChange={setSelected}
+										onSelectionChange={(e) => setSelected(e as string)}
 									>
 										<Dropdown.Item key="Very Short">Very Short</Dropdown.Item>
 										<Dropdown.Item key="Short">Short</Dropdown.Item>
@@ -143,9 +141,9 @@ export default function Home() {
 										disallowEmptySelection
 										selectionMode="single"
 										selectedKeys={gender}
-										onSelectionChange={setGender}
+										onSelectionChange={(e) => setGender(e as string)}
 									>
-										<Dropdown.Item key="CasuaMale">Male</Dropdown.Item>
+										<Dropdown.Item key="Male">Male</Dropdown.Item>
 										<Dropdown.Item key="Female">Female</Dropdown.Item>
 									</Dropdown.Menu>
 								</Dropdown>
@@ -159,7 +157,7 @@ export default function Home() {
 										disallowEmptySelection
 										selectionMode="single"
 										selectedKeys={relationship}
-										onSelectionChange={setRelationship}
+										onSelectionChange={(e) => setRelationship(e as string)}
 									>
 										<Dropdown.Item
 											css={{

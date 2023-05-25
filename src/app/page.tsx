@@ -92,7 +92,7 @@ export default function Home() {
 						className="grid grid-cols-2 items-center gap-4"
 						onSubmit={onSubmit}
 					>
-						<div className="flex justify-between col-span-2">
+						<div className="grid grid-cols-2 md:flex md:justify-between col-span-2">
 							<div>
 								<p>Tone</p>
 								<Dropdown>

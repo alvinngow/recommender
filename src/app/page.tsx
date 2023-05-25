@@ -41,10 +41,10 @@ export default function Home() {
 	const [loading, setLoading] = React.useState(false);
 	const [generated, setGenerated] = React.useState("");
 
-	const title = useRef(null);
-	const companyName = useRef(null);
-	const recName = useRef(null);
-	const skillset = useRef(null);
+	const title = useRef<HTMLInputElement | null>(null);
+	const companyName = useRef<HTMLInputElement | null>(null);
+	const recName = useRef<HTMLInputElement | null>(null);
+	const skillset = useRef<HTMLInputElement | null>(null);
 
 	async function onSubmit() {
 		event?.preventDefault();

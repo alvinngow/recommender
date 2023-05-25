@@ -89,12 +89,12 @@ export default function Home() {
 			}}
 		>
 			<NextUIProvider>
-				<main className="flex min-h-screen flex-col p-24">
+				<main className="flex min-h-screen flex-col md:p-24 p-4">
 					<form
 						className="grid grid-cols-2 items-center gap-4"
 						onSubmit={onSubmit}
 					>
-						<div className="flex justify-between">
+						<div className="flex justify-between col-span-2">
 							<div>
 								<p>Tone</p>
 								<Dropdown>
@@ -268,7 +268,6 @@ export default function Home() {
 								</Dropdown>
 							</div>
 						</div>
-						<div></div>
 						<Input ref={title} label="Title"></Input>
 						<Input ref={companyName} label="Company Name"></Input>
 						<Input ref={recName} label="Name"></Input>

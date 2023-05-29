@@ -49,20 +49,40 @@ export default function Home() {
 	const recName = useRef<HTMLInputElement | null>(null);
 	const skillset = useRef<HTMLInputElement | null>(null);
 
+	function promptMaker() {
+		const rs = [...relationship][0];
+		let prompt = "";
+
+		if (rs == "Studied together") {
+			prompt = `
+			can you write me a linkedin recommendation with the following parameters:
+			Tone: ${[...tone][0]}
+			Length: ${[...selected][0]}
+			Gender: ${[...gender][0]}
+			Name: ${recName.current!.value}
+			School Name: ${companyName.current!.value}
+			skillsets: ${skillset.current!.value}
+			`;
+		} else {
+			prompt = `
+			can you write me a linkedin recommendation with the following parameters:
+			Tone: ${[...tone][0]}
+			Length: ${[...selected][0]}
+			Gender: ${[...gender][0]}
+			Relationship: ${[...relationship][0]}
+			Name: ${recName.current!.value}
+			Title: ${title.current!.value}
+			Company Name: ${companyName.current!.value}
+			skillsets: ${skillset.current!.value}
+    		`;
+		}
+		return prompt;
+	}
+
 	async function onSubmit() {
 		event?.preventDefault();
 		setGenerated("");
-		const prompt = `
-    can you write me a linkedin recommendation with the following parameters:
-    Tone: ${tone}
-    Length: ${selected}
-    Gender: ${gender}
-    Name: ${recName.current!.value}
-    Title: ${title.current!.value}
-    Company Name: ${companyName.current!.value}
-    Relationship: ${relationship}
-    skillsets: ${skillset.current!.value}
-    `;
+		const prompt = promptMaker();
 		const configuration = new Configuration({
 			organization: "org-ctBzyynSlfNtOwHI3gkiJLKs",
 			apiKey: process.env.OPENAI_API_KEY,
@@ -269,12 +289,31 @@ export default function Home() {
 								</Dropdown>
 							</div>
 						</div>
-						<Input ref={title} label="Title"></Input>
-						<Input ref={companyName} label="Company Name"></Input>
+						{[...relationship][0] !== "Studied together" && (
+							<Input ref={title} label="Title"></Input>
+						)}
+
+						<Input
+							ref={companyName}
+							label={`${
+								[...relationship][0] == "Studied together"
+									? "School Name"
+									: "Company Name"
+							}`}
+						></Input>
 						<Input ref={recName} label="Name"></Input>
 						<Input ref={skillset} label="Skillsets"></Input>
 						<Button className="col-span-2" color="gradient" type="submit">
-							{loading ? <Loading color="currentColor" size="sm" /> : "Submit"}
+							{loading ? (
+								<div className="flex items-center">
+									<Loading color="currentColor" size="sm" />
+									<p className="pl-2">
+										Please wait, generating a response for you!
+									</p>
+								</div>
+							) : (
+								"Submit"
+							)}
 						</Button>
 					</form>
 					<div className="mt-4">
@@ -282,7 +321,7 @@ export default function Home() {
 							readOnly
 							css={{ width: "100%", color: "Black" }}
 							placeholder="Generated Prompt"
-							rows={4}
+							rows={8}
 							value={generated}
 						/>
 					</div>

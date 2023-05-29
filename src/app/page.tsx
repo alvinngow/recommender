@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, Key } from "react";
 
 import {
 	createTheme,
@@ -19,6 +19,8 @@ import {
 } from "next-themes";
 import { Configuration, OpenAIApi } from "openai";
 
+type Selection = "all" | Set<Key>;
+
 export default function Home() {
 	const darkTheme = createTheme({
 		type: "dark",
@@ -33,10 +35,12 @@ export default function Home() {
 	const { setTheme } = useNextTheme();
 	const { isDark, type } = useTheme();
 
-	const [selected, setSelected] = React.useState("Short");
-	const [tone, setTone] = React.useState("Casual");
-	const [gender, setGender] = React.useState("Male");
-	const [relationship, setRelationship] = React.useState("Managed directly");
+	const [selected, setSelected] = React.useState<Selection>(new Set(["Short"]));
+	const [tone, setTone] = React.useState<Selection>(new Set(["Casual"]));
+	const [gender, setGender] = React.useState<Selection>(new Set(["Male"]));
+	const [relationship, setRelationship] = React.useState<Selection>(
+		new Set(["Managed directly"])
+	);
 	const [loading, setLoading] = React.useState(false);
 	const [generated, setGenerated] = React.useState("");
 
@@ -77,7 +81,6 @@ export default function Home() {
 				setGenerated(response.data.choices[0].message!.content);
 			});
 	}
-
 	return (
 		<NextThemesProvider
 			defaultTheme="system"
@@ -102,7 +105,7 @@ export default function Home() {
 										disallowEmptySelection
 										selectionMode="single"
 										selectedKeys={tone}
-										onSelectionChange={(e) => setTone(e as string)}
+										onSelectionChange={(e) => setTone(e)}
 									>
 										<Dropdown.Item key="Casual">Casual</Dropdown.Item>
 										<Dropdown.Item key="Professional">
@@ -123,7 +126,7 @@ export default function Home() {
 										disallowEmptySelection
 										selectionMode="single"
 										selectedKeys={selected}
-										onSelectionChange={(e) => setSelected(e as string)}
+										onSelectionChange={(e) => setSelected(e)}
 									>
 										<Dropdown.Item key="Very Short">Very Short</Dropdown.Item>
 										<Dropdown.Item key="Short">Short</Dropdown.Item>
@@ -141,7 +144,7 @@ export default function Home() {
 										disallowEmptySelection
 										selectionMode="single"
 										selectedKeys={gender}
-										onSelectionChange={(e) => setGender(e as string)}
+										onSelectionChange={(e) => setGender(e)}
 									>
 										<Dropdown.Item key="Male">Male</Dropdown.Item>
 										<Dropdown.Item key="Female">Female</Dropdown.Item>
@@ -157,7 +160,7 @@ export default function Home() {
 										disallowEmptySelection
 										selectionMode="single"
 										selectedKeys={relationship}
-										onSelectionChange={(e) => setRelationship(e as string)}
+										onSelectionChange={(e) => setRelationship(e)}
 									>
 										<Dropdown.Item
 											css={{

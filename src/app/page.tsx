@@ -34,7 +34,9 @@ export default function Home() {
 					{/* <NavBar></NavBar> */}
 					<main className="grid min-h-screen grid-cols-2 items-center">
 						<Hero mode={mode} setMode={setMode}></Hero>
-						<Recommender></Recommender>
+						{[...mode!][0] == "LinkedIn recommendation" && (
+							<Recommender></Recommender>
+						)}
 					</main>
 				</div>
 			</NextUIProvider>

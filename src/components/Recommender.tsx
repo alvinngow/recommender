@@ -96,7 +96,7 @@ function Recommender() {
 						<div>
 							<p>Tone</p>
 							<Dropdown>
-								<Dropdown.Button css={{ width: "80%" }} flat>
+								<Dropdown.Button css={{ width: "80%" }} color="success" flat>
 									{tone}
 								</Dropdown.Button>
 								<Dropdown.Menu
@@ -116,7 +116,7 @@ function Recommender() {
 						<div>
 							<p>Length</p>
 							<Dropdown>
-								<Dropdown.Button css={{ width: "80%" }} flat>
+								<Dropdown.Button css={{ width: "80%" }} color="success" flat>
 									{selected}
 								</Dropdown.Button>
 								<Dropdown.Menu
@@ -136,7 +136,7 @@ function Recommender() {
 						<div>
 							<p>Gender</p>
 							<Dropdown>
-								<Dropdown.Button css={{ width: "80%" }} flat>
+								<Dropdown.Button css={{ width: "80%" }} color="success" flat>
 									{gender}
 								</Dropdown.Button>
 								<Dropdown.Menu
@@ -154,7 +154,7 @@ function Recommender() {
 						<div>
 							<p>Relationship</p>
 							<Dropdown>
-								<Dropdown.Button css={{ width: "80%" }} flat>
+								<Dropdown.Button css={{ width: "80%" }} color="success" flat>
 									{relationship}
 								</Dropdown.Button>
 								<Dropdown.Menu
@@ -293,7 +293,11 @@ function Recommender() {
 					<div className="col-span-2">
 						<Input ref={skillset} fullWidth label="Skillsets"></Input>
 					</div>
-					<Button className="col-span-2 mt-4" color="gradient" type="submit">
+					<Button
+						className="col-span-2 mt-4"
+						css={{ backgroundColor: "#4fd593" }}
+						type="submit"
+					>
 						Submit
 					</Button>
 				</>

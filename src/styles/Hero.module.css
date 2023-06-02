@@ -1,0 +1,13 @@
+.hero{
+
+
+@apply w-full h-[30vh] rounded-xl flex items-center justify-center py-8
+}
+
+.hero-header{
+    @apply text-8xl
+}
+
+.sub-header{
+    @apply text-4xl mt-4
+}

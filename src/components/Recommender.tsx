@@ -16,7 +16,7 @@ import { Configuration, OpenAIApi } from "openai";
 import { Selection } from "@/app/page";
 
 function Recommender() {
-	const [submitted, setSubmitted] = React.useState(true);
+	const [submitted, setSubmitted] = React.useState(false);
 
 	const [selected, setSelected] = React.useState<Selection>(new Set(["Short"]));
 	const [tone, setTone] = React.useState<Selection>(new Set(["Casual"]));

@@ -26,7 +26,7 @@ function Hero(props: HeroProps) {
 
 	return (
 		<div className={style.hero}>
-			<div className="flex flex-col">
+			<div>
 				<Typewriter
 					text={dataText}
 					delay={100}

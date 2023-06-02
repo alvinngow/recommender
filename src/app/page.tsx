@@ -1,5 +1,7 @@
 "use client";
 import React, { useRef, Key, useState } from "react";
+import { analytics } from "./analytics";
+import { useEffect } from "react";
 
 import { createTheme, NextUIProvider, useTheme } from "@nextui-org/react";
 import {
@@ -19,8 +21,11 @@ export default function Home() {
 		theme: {},
 	});
 
-	const [mode, setMode] = useState<Selection | undefined>(undefined);
+	const [mode, setMode] = useState<Selection>(new Set());
 
+	useEffect(() => {
+		analytics(window, document, "script", "dataLayer", "G-GMPFRNH8JJ");
+	});
 	return (
 		<NextThemesProvider
 			defaultTheme="system"

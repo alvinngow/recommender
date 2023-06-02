@@ -18,7 +18,7 @@ import { Selection } from "@/app/page";
 
 type HeroProps = {
 	mode: Selection | undefined;
-	setMode: React.Dispatch<React.SetStateAction<Selection | undefined>>;
+	setMode: React.Dispatch<React.SetStateAction<Selection>>;
 };
 
 function Hero(props: HeroProps) {
@@ -40,7 +40,11 @@ function Hero(props: HeroProps) {
 				<div>
 					<Dropdown>
 						<Dropdown.Button light>
-							{props.mode ? props.mode : <p>Just tell us what you need</p>}
+							{[...props.mode!][0] ? (
+								props.mode
+							) : (
+								<p>Just tell us what you need</p>
+							)}
 						</Dropdown.Button>
 						<Dropdown.Menu
 							aria-label="Static Actions"

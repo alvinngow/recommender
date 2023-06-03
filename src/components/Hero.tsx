@@ -34,12 +34,12 @@ function Hero(props: HeroProps) {
 				/>
 				<Typewriter
 					text={"Simplifying commendations using A.I"}
-					delay={100}
+					delay={50}
 					className={style["sub-header"]}
 				/>
 				<div>
 					<Dropdown>
-						<Dropdown.Button light>
+						<Dropdown.Button css={{ padding: 0 }} light>
 							{[...props.mode!][0] ? (
 								props.mode
 							) : (

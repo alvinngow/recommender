@@ -1,7 +1,7 @@
 .hero{
 
 
-@apply w-full h-[30vh] rounded-xl flex items-center justify-center py-8
+@apply w-full rounded-xl flex items-center justify-center py-8 h-screen
 }
 
 .hero-header{

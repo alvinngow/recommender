@@ -37,7 +37,7 @@ export default function Home() {
 			<NextUIProvider>
 				<div className={style.page}>
 					{/* <NavBar></NavBar> */}
-					<main className="lg:grid min-h-screen grid-cols-2 items-center">
+					<main className="lg:grid min-h-screen grid-cols-2 items-center ">
 						<Hero mode={mode} setMode={setMode}></Hero>
 						{[...mode!][0] == "LinkedIn recommendation" && (
 							<Recommender></Recommender>

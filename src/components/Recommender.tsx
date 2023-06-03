@@ -87,13 +87,13 @@ function Recommender() {
 	}
 	return (
 		<form
-			className="grid 2xl:grid-cols-2 items-center gap-4 mx-24 p-4 max-w-[600px] min-h-[580px] bg-white rounded-xl"
+			className="grid 2xl:grid-cols-2 items-center gap-4 mx-8 lg:mx-24 p-4 min-w-[290px] max-w-[600px] min-h-[580px] bg-white rounded-xl"
 			onSubmit={onSubmit}
 		>
 			{!submitted && (
 				<>
 					<div className="grid grid-cols-2 col-span-2">
-						<div className="col-span-2 lg:col-span-1 pr-2">
+						<div className="col-span-2 lg:col-span-1 lg:pr-2">
 							<p>Tone</p>
 							<Dropdown>
 								<Dropdown.Button css={{ width: "100%" }} color="success" flat>
@@ -113,7 +113,7 @@ function Recommender() {
 								</Dropdown.Menu>
 							</Dropdown>
 						</div>
-						<div className="col-span-2 lg:col-span-1 pl-2">
+						<div className="col-span-2 lg:col-span-1 lg:pl-2">
 							<p>Length</p>
 							<Dropdown>
 								<Dropdown.Button css={{ width: "100%" }} color="success" flat>
@@ -133,7 +133,7 @@ function Recommender() {
 								</Dropdown.Menu>
 							</Dropdown>
 						</div>
-						<div className="col-span-2 lg:col-span-1 pr-2">
+						<div className="col-span-2 lg:col-span-1 lg:pr-2">
 							<p>Gender</p>
 							<Dropdown>
 								<Dropdown.Button css={{ width: "100%" }} color="success" flat>
@@ -151,7 +151,7 @@ function Recommender() {
 								</Dropdown.Menu>
 							</Dropdown>
 						</div>
-						<div className="col-span-2 lg:col-span-1 pl-2">
+						<div className="col-span-2 lg:col-span-1 lg:pl-2">
 							<p>Relationship</p>
 							<Dropdown>
 								<Dropdown.Button css={{ width: "100%" }} color="success" flat>

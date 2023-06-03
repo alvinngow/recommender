@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, Key, useState } from "react";
+import React, { useRef, Key, useState, LegacyRef } from "react";
 import { analytics } from "./analytics";
 import { useEffect } from "react";
 
@@ -22,6 +22,18 @@ export default function Home() {
 	});
 
 	const [mode, setMode] = useState<Selection>(new Set());
+	const recRef = useRef<HTMLFormElement | null>(null);
+
+	function handleModeChange() {
+		console.log(recRef);
+		if ([...mode][0] == "LinkedIn recommendation") {
+			recRef.current!.scrollIntoView({ behavior: "smooth" });
+		}
+	}
+
+	useEffect(() => {
+		handleModeChange();
+	}, [mode]);
 
 	useEffect(() => {
 		analytics(window, document, "script", "dataLayer", "G-GMPFRNH8JJ");
@@ -38,9 +50,15 @@ export default function Home() {
 				<div className={style.page}>
 					{/* <NavBar></NavBar> */}
 					<main className="lg:grid min-h-screen grid-cols-2 items-center ">
-						<Hero mode={mode} setMode={setMode}></Hero>
+						<Hero
+							mode={mode}
+							setMode={setMode}
+							handleModeChange={handleModeChange}
+						></Hero>
 						{[...mode!][0] == "LinkedIn recommendation" && (
-							<Recommender></Recommender>
+							<div className="flex items-center justify-center w-full h-screen">
+								<Recommender ref={recRef}></Recommender>
+							</div>
 						)}
 					</main>
 				</div>

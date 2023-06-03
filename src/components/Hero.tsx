@@ -19,6 +19,7 @@ import { Selection } from "@/app/page";
 type HeroProps = {
 	mode: Selection | undefined;
 	setMode: React.Dispatch<React.SetStateAction<Selection>>;
+	handleModeChange: () => void;
 };
 
 function Hero(props: HeroProps) {

@@ -56,7 +56,7 @@ export default function Home() {
 							handleModeChange={handleModeChange}
 						></Hero>
 						{[...mode!][0] == "LinkedIn recommendation" && (
-							<div className="flex items-center justify-center w-full h-screen">
+							<div className="flex items-center justify-center w-full h-screen py-4">
 								<Recommender ref={recRef}></Recommender>
 							</div>
 						)}

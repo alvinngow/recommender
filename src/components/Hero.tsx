@@ -40,16 +40,20 @@ function Hero(props: HeroProps) {
 				/>
 				<div>
 					<Dropdown>
-						<Dropdown.Button css={{ padding: 0 }} light>
+						<Dropdown.Button
+							className="mt-4 text-2xl "
+							css={{ padding: 0 }}
+							light
+						>
 							{[...props.mode!][0] ? (
-								props.mode
+								<p className="text-2xl">{props.mode}</p>
 							) : (
-								<p>Just tell us what you need</p>
+								<p className="text-2xl">Get Started</p>
 							)}
 						</Dropdown.Button>
 						<Dropdown.Menu
 							aria-label="Static Actions"
-							variant="light"
+							variant="flat"
 							selectionMode="single"
 							selectedKeys={props.mode}
 							onSelectionChange={(e) => props.setMode(e)}
@@ -57,9 +61,12 @@ function Hero(props: HeroProps) {
 							<Dropdown.Item key="LinkedIn recommendation">
 								LinkedIn recommendation
 							</Dropdown.Item>
-							<Dropdown.Item key="Instagram captions">
-								Instagram captions
+							<Dropdown.Item key="Suggest Improvements">
+								Suggest Improvements
 							</Dropdown.Item>
+							{/* <Dropdown.Item key="Instagram captions">
+								Instagram captions
+							</Dropdown.Item> */}
 							<Dropdown.Item key="Quotes">Quotes</Dropdown.Item>
 						</Dropdown.Menu>
 					</Dropdown>

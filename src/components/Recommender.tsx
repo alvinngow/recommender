@@ -11,11 +11,12 @@ import {
 } from "@nextui-org/react";
 
 import React, { useRef, Key } from "react";
-import { Configuration, OpenAIApi } from "openai";
 
 import { Selection } from "@/app/page";
 
 import { LegacyRef, MutableRefObject } from "react";
+import GeneratingPrompt from "./common/GeneratingPrompt";
+import { getPrompt } from "@/helper";
 
 type RecProps = {
 	ref: LegacyRef<HTMLFormElement> | null;
@@ -26,9 +27,11 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 		const [submitted, setSubmitted] = React.useState(false);
 
 		const [selected, setSelected] = React.useState<Selection>(
-			new Set(["Short"])
+			new Set(["Medium"])
 		);
-		const [tone, setTone] = React.useState<Selection>(new Set(["Casual"]));
+		const [tone, setTone] = React.useState<Selection>(
+			new Set(["Professional"])
+		);
 		const [gender, setGender] = React.useState<Selection>(new Set(["Male"]));
 		const [relationship, setRelationship] = React.useState<Selection>(
 			new Set(["Managed directly"])
@@ -40,8 +43,6 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 		const companyName = useRef<HTMLInputElement | null>(null);
 		const recName = useRef<HTMLInputElement | null>(null);
 		const skillset = useRef<HTMLInputElement | null>(null);
-
-		const r = useRef(null);
 
 		function promptMaker() {
 			const rs = [...relationship][0];
@@ -78,23 +79,14 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 			setSubmitted(true);
 			setGenerated("");
 			const prompt = promptMaker();
-			const configuration = new Configuration({
-				organization: "org-ctBzyynSlfNtOwHI3gkiJLKs",
-				apiKey: process.env.OPENAI_API_KEY,
-			});
-			delete configuration.baseOptions.headers["User-Agent"];
 
-			const openai = new OpenAIApi(configuration);
 			setLoading(true);
-			const response = await openai
-				.createChatCompletion({
-					model: "gpt-3.5-turbo",
-					messages: [{ role: "user", content: prompt }],
-				})
-				.then((response) => {
-					setLoading(false);
-					setGenerated(response.data.choices[0].message!.content);
-				});
+			const generated = await getPrompt(prompt);
+			console.log(
+				"🚀 ~ file: Recommender.tsx:87 ~ onSubmit ~ generated:",
+				generated
+			);
+			setLoading(false);
 		}
 		return (
 			<form
@@ -285,6 +277,10 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 								</Dropdown>
 							</div>
 						</div>
+
+						<div className="col-span-2 ">
+							<Input ref={recName} fullWidth label="Name"></Input>
+						</div>
 						{[...relationship][0] !== "Studied together" && (
 							<div className="col-span-2">
 								<Input ref={title} fullWidth label="Title"></Input>
@@ -301,9 +297,7 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 								fullWidth
 							></Input>
 						</div>
-						<div className="col-span-2 ">
-							<Input ref={recName} fullWidth label="Name"></Input>
-						</div>
+
 						<div className="col-span-2">
 							<Input ref={skillset} fullWidth label="Skillsets"></Input>
 						</div>
@@ -316,12 +310,7 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 						</Button>
 					</>
 				)}
-				{loading && (
-					<div className="flex flex-col items-center col-span-2">
-						<Loading color="currentColor" size="sm" />
-						<p className="pl-2">Please wait, generating a response for you!</p>
-					</div>
-				)}
+				{loading && <GeneratingPrompt />}
 				{submitted && !loading && (
 					<div className="mt-4 col-span-2">
 						<Textarea

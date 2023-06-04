@@ -12,6 +12,7 @@ import NavBar from "@/components/NavBar";
 import Hero from "@/components/Hero";
 import style from "../styles/Page.module.css";
 import Recommender from "@/components/Recommender";
+import Quotes from "@/components/Quotes";
 
 export type Selection = "all" | Set<Key>;
 
@@ -23,9 +24,9 @@ export default function Home() {
 
 	const [mode, setMode] = useState<Selection>(new Set());
 	const recRef = useRef<HTMLFormElement | null>(null);
+	const quotesRef = useRef<HTMLFormElement | null>(null);
 
 	function handleModeChange() {
-		console.log(recRef);
 		if ([...mode][0] == "LinkedIn recommendation") {
 			recRef.current!.scrollIntoView({ behavior: "smooth" });
 		}
@@ -55,11 +56,13 @@ export default function Home() {
 							setMode={setMode}
 							handleModeChange={handleModeChange}
 						></Hero>
-						{[...mode!][0] == "LinkedIn recommendation" && (
-							<div className="flex items-center justify-center w-full h-screen py-4">
+						<div className="flex items-center justify-center w-full h-screen py-4">
+							{[...mode!][0] == "LinkedIn recommendation" ? (
 								<Recommender ref={recRef}></Recommender>
-							</div>
-						)}
+							) : (
+								[...mode!][0] == "Quotes" && <Quotes ref={quotesRef}></Quotes>
+							)}
+						</div>
 					</main>
 				</div>
 			</NextUIProvider>

@@ -58,13 +58,15 @@ export default function Home() {
 							setMode={setMode}
 							handleModeChange={handleModeChange}
 						></Hero>
-						<div className="flex items-center justify-center w-full h-screen py-4">
-							{[...mode!][0] == "LinkedIn recommendation" ? (
-								<Recommender ref={recRef}></Recommender>
-							) : (
-								[...mode!][0] == "Quotes" && <Quotes ref={quotesRef}></Quotes>
-							)}
-						</div>
+						{[...mode][0] && (
+							<div className="flex items-center justify-center w-full h-screen py-4">
+								{[...mode!][0] == "LinkedIn recommendation" ? (
+									<Recommender ref={recRef}></Recommender>
+								) : (
+									[...mode!][0] == "Quotes" && <Quotes ref={quotesRef}></Quotes>
+								)}
+							</div>
+						)}
 					</main>
 				</div>
 			</NextUIProvider>

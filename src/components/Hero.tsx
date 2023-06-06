@@ -42,8 +42,10 @@ function Hero(props: HeroProps) {
 					<Dropdown>
 						<Dropdown.Button
 							className="mt-4 text-2xl "
-							css={{ padding: 0 }}
+							color="success"
+							ghost
 							light
+							bordered
 						>
 							{[...props.mode!][0] ? (
 								<p className="text-2xl">{props.mode}</p>

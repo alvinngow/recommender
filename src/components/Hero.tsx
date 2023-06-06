@@ -58,10 +58,10 @@ function Hero(props: HeroProps) {
 							selectedKeys={props.mode}
 							onSelectionChange={(e) => props.setMode(e)}
 						>
-							<Dropdown.Item key="LinkedIn recommendation">
+							<Dropdown.Item className="mt-2" key="LinkedIn recommendation">
 								LinkedIn recommendation
 							</Dropdown.Item>
-							<Dropdown.Item key="Suggest Improvements">
+							<Dropdown.Item className="my-2" key="Suggest Improvements">
 								Suggest Improvements
 							</Dropdown.Item>
 							{/* <Dropdown.Item key="Instagram captions">

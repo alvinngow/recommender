@@ -3,7 +3,12 @@ import React, { useRef, Key, useState, LegacyRef } from "react";
 import { analytics } from "./analytics";
 import { useEffect } from "react";
 
-import { createTheme, NextUIProvider, useTheme } from "@nextui-org/react";
+import {
+	createTheme,
+	Dropdown,
+	NextUIProvider,
+	useTheme,
+} from "@nextui-org/react";
 import {
 	ThemeProvider as NextThemesProvider,
 	useTheme as useNextTheme,
@@ -59,13 +64,50 @@ export default function Home() {
 							handleModeChange={handleModeChange}
 						></Hero>
 						{[...mode][0] && (
-							<div className="flex items-center justify-center w-full h-screen py-4">
-								{[...mode!][0] == "LinkedIn recommendation" ? (
-									<Recommender ref={recRef}></Recommender>
-								) : (
-									[...mode!][0] == "Quotes" && <Quotes ref={quotesRef}></Quotes>
-								)}
-							</div>
+							<>
+								<div className="flex flex-col items-center justify-center w-full min-h-screen py-4">
+									<Dropdown>
+										<Dropdown.Button className="ml-2" light>
+											{[...mode!][0] ? (
+												<p className="text-2xl">{mode}</p>
+											) : (
+												<p className="text-2xl">Select your need</p>
+											)}
+										</Dropdown.Button>
+										<Dropdown.Menu
+											aria-label="Static Actions"
+											variant="flat"
+											selectionMode="single"
+											selectedKeys={mode}
+											onSelectionChange={(e) => setMode(e)}
+										>
+											<Dropdown.Item
+												className="mt-2"
+												key="LinkedIn recommendation"
+											>
+												LinkedIn recommendation
+											</Dropdown.Item>
+											<Dropdown.Item
+												className="my-2"
+												key="Suggest improvements"
+											>
+												Suggest improvements
+											</Dropdown.Item>
+											{/* <Dropdown.Item key="Instagram captions">
+														Instagram captions
+													</Dropdown.Item> */}
+											<Dropdown.Item key="Quotes">Quotes</Dropdown.Item>
+										</Dropdown.Menu>
+									</Dropdown>
+									{[...mode!][0] == "LinkedIn recommendation" ? (
+										<Recommender ref={recRef}></Recommender>
+									) : (
+										[...mode!][0] == "Quotes" && (
+											<Quotes ref={quotesRef}></Quotes>
+										)
+									)}
+								</div>
+							</>
 						)}
 					</main>
 				</div>

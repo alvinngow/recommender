@@ -13,8 +13,10 @@ import {
 	Button,
 	Loading,
 } from "@nextui-org/react";
+import { ArrowRightCircleIcon } from "@heroicons/react/24/outline";
 
 import { Selection } from "@/app/page";
+import IconButton from "./IconButton";
 
 type HeroProps = {
 	mode: Selection | undefined;
@@ -38,40 +40,15 @@ function Hero(props: HeroProps) {
 					delay={50}
 					className={style["sub-header"]}
 				/>
-				<div>
-					<Dropdown>
-						<Dropdown.Button
-							className="mt-4 text-2xl "
-							color="success"
-							ghost
-							light
-							bordered
-						>
-							{[...props.mode!][0] ? (
-								<p className="text-2xl">{props.mode}</p>
-							) : (
-								<p className="text-2xl">Get Started</p>
-							)}
-						</Dropdown.Button>
-						<Dropdown.Menu
-							aria-label="Static Actions"
-							variant="flat"
-							selectionMode="single"
-							selectedKeys={props.mode}
-							onSelectionChange={(e) => props.setMode(e)}
-						>
-							<Dropdown.Item className="mt-2" key="LinkedIn recommendation">
-								LinkedIn recommendation
-							</Dropdown.Item>
-							<Dropdown.Item className="my-2" key="Suggest Improvements">
-								Suggest Improvements
-							</Dropdown.Item>
-							{/* <Dropdown.Item key="Instagram captions">
-								Instagram captions
-							</Dropdown.Item> */}
-							<Dropdown.Item key="Quotes">Quotes</Dropdown.Item>
-						</Dropdown.Menu>
-					</Dropdown>
+				<div className="flex items-center mt-2">
+					<Button
+						ghost
+						color="success"
+						onClick={() => props.setMode(new Set(["LinkedIn recommendation"]))}
+					>
+						<p>Get Started </p>
+						<ArrowRightCircleIcon className="h-6 w-6 ml-2"></ArrowRightCircleIcon>
+					</Button>
 				</div>
 			</div>
 		</div>

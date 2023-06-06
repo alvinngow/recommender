@@ -17,6 +17,7 @@ import { Selection } from "@/app/page";
 import { LegacyRef, MutableRefObject } from "react";
 import GeneratingPrompt from "./common/GeneratingPrompt";
 import { getPrompt } from "@/helper";
+import { CreateChatCompletionResponseChoicesInner } from "openai";
 
 type RecProps = {
 	ref: LegacyRef<HTMLFormElement> | null;
@@ -37,7 +38,9 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 			new Set(["Managed directly"])
 		);
 		const [loading, setLoading] = React.useState(false);
-		const [generated, setGenerated] = React.useState("");
+		const [generatedArr, setGeneratedArr] = React.useState<
+			CreateChatCompletionResponseChoicesInner[]
+		>([]);
 
 		const title = useRef<HTMLInputElement | null>(null);
 		const companyName = useRef<HTMLInputElement | null>(null);
@@ -77,15 +80,12 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 		async function onSubmit() {
 			event?.preventDefault();
 			setSubmitted(true);
-			setGenerated("");
+			setGeneratedArr([]);
 			const prompt = promptMaker();
 
 			setLoading(true);
 			const generated = await getPrompt(prompt);
-			console.log(
-				"🚀 ~ file: Recommender.tsx:87 ~ onSubmit ~ generated:",
-				generated
-			);
+			setGeneratedArr(generated);
 			setLoading(false);
 		}
 		return (
@@ -313,25 +313,42 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 				{loading && <GeneratingPrompt />}
 				{submitted && !loading && (
 					<div className="mt-4 col-span-2">
-						<Textarea
-							readOnly
-							css={{ width: "100%", color: "Black" }}
-							placeholder="Generated Prompt"
-							rows={20}
-							value={generated}
-						/>
+						{generatedArr.map((content, i) => {
+							return (
+								<div key={i} className="col-span-2">
+									<Textarea
+										readOnly
+										css={{ width: "100%", color: "Black" }}
+										placeholder="Generated Prompt"
+										rows={6}
+										value={content.message?.content}
+									/>
+									<Button
+										onClick={() =>
+											navigator.clipboard.writeText(content.message!.content)
+										}
+										css={{ backgroundColor: "#4fd593" }}
+										className="my-2"
+									>
+										Copy to clipboard
+									</Button>
+								</div>
+							);
+						})}
 						<div className="grid grid-cols-2 mt-4">
 							<Button
-								onClick={() => navigator.clipboard.writeText(generated)}
-								css={{ backgroundColor: "#4fd593" }}
-								className="mx-2"
+								className="col-span-2"
+								onClick={() => setSubmitted(false)}
+								color="success"
+								flat
 							>
-								Copy to clipboard
+								New Recommendation
 							</Button>
 							<Button
-								onClick={() => setSubmitted(false)}
-								css={{ backgroundColor: "#4fd593" }}
-								className="mx-2"
+								className="col-span-2 mt-2"
+								onClick={() => onSubmit()}
+								color="success"
+								flat
 							>
 								Regenerate
 							</Button>

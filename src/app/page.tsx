@@ -29,6 +29,8 @@ export default function Home() {
 	function handleModeChange() {
 		if ([...mode][0] == "LinkedIn recommendation") {
 			recRef.current!.scrollIntoView({ behavior: "smooth" });
+		} else if ([...mode][0] == "Quotes") {
+			quotesRef.current!.scrollIntoView({ behavior: "smooth" });
 		}
 	}
 

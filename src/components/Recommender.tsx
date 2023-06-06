@@ -91,7 +91,7 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 		return (
 			<form
 				ref={ref}
-				className="grid 2xl:grid-cols-2 items-center gap-4 mx-8 lg:mx-24 p-4 min-w-[290px] max-w-[600px] min-h-[580px] bg-white rounded-xl"
+				className="grid 2xl:grid-cols-2 items-center gap-4 mx-8 lg:mx-24 p-4 min-w-[300px] lg:min-w-[600px] min-h-[580px] bg-white rounded-xl"
 				onSubmit={onSubmit}
 			>
 				{!submitted && (
@@ -306,11 +306,13 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 							css={{ backgroundColor: "#4fd593" }}
 							type="submit"
 						>
-							Submit
+							Generate
 						</Button>
 					</>
 				)}
-				{loading && <GeneratingPrompt />}
+				{loading && (
+					<GeneratingPrompt text="Generating 3 sample responses for you!" />
+				)}
 				{submitted && !loading && (
 					<div className="mt-4 col-span-2">
 						{generatedArr.map((content, i) => {
@@ -335,7 +337,7 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 								</div>
 							);
 						})}
-						<div className="grid grid-cols-2 mt-4">
+						<div className="grid grid-cols-2 mt-4 min-w-[70%]">
 							<Button
 								className="col-span-2"
 								onClick={() => setSubmitted(false)}

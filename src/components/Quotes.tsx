@@ -103,7 +103,7 @@ const Quotes: React.ForwardRefRenderFunction<HTMLFormElement> = function (
 						css={{ backgroundColor: "#4fd593" }}
 						type="submit"
 					>
-						Submit
+						Generate
 					</Button>
 				</>
 			)}
@@ -134,7 +134,7 @@ const Quotes: React.ForwardRefRenderFunction<HTMLFormElement> = function (
 						);
 					})}
 
-					<div className="flex justify-center col-span-2 mt-6">
+					<div className="flex justify-center col-span-2 mt-6 ">
 						<Button
 							className="mr-2"
 							onClick={() => setSubmitted(false)}

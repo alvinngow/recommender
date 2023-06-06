@@ -34,7 +34,7 @@ function Hero(props: HeroProps) {
 					className={style["hero-header"]}
 				/>
 				<Typewriter
-					text={"Simplifying commendations using A.I"}
+					text={"Simplifying commendations using A.I."}
 					delay={50}
 					className={style["sub-header"]}
 				/>

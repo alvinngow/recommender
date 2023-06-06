@@ -3,9 +3,9 @@
 }
 
 .hero-header{
-    @apply text-8xl
+    @apply text-7xl lg:text-8xl
 }
 
 .sub-header{
-    @apply text-4xl mt-4
+    @apply text-3xl mt-4
 }

@@ -36,6 +36,7 @@ export default function Home() {
 	const recRef = useRef<HTMLFormElement | null>(null);
 	const improvementsRef = useRef<HTMLFormElement | null>(null);
 	const quotesRef = useRef<HTMLFormElement | null>(null);
+	const dropDownRef = useRef(null);
 
 	function handleModeChange() {
 		if ([...mode][0] == "LinkedIn recommendation") {
@@ -44,6 +45,13 @@ export default function Home() {
 			improvementsRef.current!.scrollIntoView({ behavior: "smooth" });
 		} else if ([...mode][0] == "Quotes") {
 			quotesRef.current!.scrollIntoView({ behavior: "smooth" });
+		}
+		if ([...mode][0]) {
+			console.log(
+				"🚀 ~ file: page.tsx:51 ~ handleModeChange ~ dropDownRef:",
+				dropDownRef
+			);
+			dropDownRef.current!.scrollIntoView({ behavior: "smooth" });
 		}
 	}
 
@@ -74,7 +82,10 @@ export default function Home() {
 							></Hero>
 							{[...mode][0] && (
 								<>
-									<div className="flex flex-col items-center justify-center w-full min-h-screen py-4">
+									<div
+										className="flex flex-col items-center justify-center w-full min-h-screen py-4"
+										ref={dropDownRef}
+									>
 										<Dropdown>
 											<Dropdown.Button className="ml-2" light>
 												{[...mode!][0] ? (

@@ -18,6 +18,7 @@ import { LegacyRef, MutableRefObject } from "react";
 import GeneratingPrompt from "./common/GeneratingPrompt";
 import { getPrompt } from "@/helper";
 import { CreateChatCompletionResponseChoicesInner } from "openai";
+import ReCAPTCHA from "react-google-recaptcha";
 
 type RecProps = {
 	ref: LegacyRef<HTMLFormElement> | null;
@@ -301,6 +302,7 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 						<div className="col-span-2">
 							<Input ref={skillset} fullWidth label="Skillsets"></Input>
 						</div>
+						{/* <ReCAPTCHA sitekey="" /> */}
 						<Button
 							className="col-span-2 mt-4"
 							css={{ backgroundColor: "#4fd593" }}

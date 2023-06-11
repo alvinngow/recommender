@@ -36,7 +36,7 @@ export default function Home() {
 	const recRef = useRef<HTMLFormElement | null>(null);
 	const improvementsRef = useRef<HTMLFormElement | null>(null);
 	const quotesRef = useRef<HTMLFormElement | null>(null);
-	const dropDownRef = useRef(null);
+	const dropDownRef = useRef<HTMLDivElement>(null);
 
 	function handleModeChange() {
 		if ([...mode][0] == "LinkedIn recommendation") {

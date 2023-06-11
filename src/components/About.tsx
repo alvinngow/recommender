@@ -5,7 +5,7 @@ function About() {
 				<p className="text-4xl">About Us</p>
 				<p className="mt-4 text-2xl text-center">
 					Founded by two Information Systems professionals with a vision to
-					bridge technology laggard's problems using generative A.I
+					bridge technology laggard&apos;s problems using generative A.I
 				</p>
 				<p className="mt-4 text-2xl text-center">
 					With Recplus.AI, we aim to provide an easy-to-use structured interface
@@ -14,11 +14,11 @@ function About() {
 					are best given before receiving.
 				</p>
 				<p className="mt-4 text-2xl text-center">
-					We often overlook beyond the"Five Cs of Singapore" — namely, cash,
-					car, credit card, condominium and country club membership. There is no
-					doubt in our hearts that when it comes to generative AI going
-					mainstream, Credibility through Commendations will be the most
-					important Cs to stand out in the future.
+					We often overlook beyond the &quot;Five Cs of Singapore&quot; —
+					namely, cash, car, credit card, condominium and country club
+					membership. There is no doubt in our hearts that when it comes to
+					generative AI going mainstream, Credibility through Commendations will
+					be the most important Cs to stand out in the future.
 				</p>
 			</div>
 		</div>

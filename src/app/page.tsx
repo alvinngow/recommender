@@ -19,8 +19,11 @@ import style from "../styles/Page.module.css";
 import Recommender from "@/components/Recommender";
 import Quotes from "@/components/Quotes";
 import Improvements from "@/components/Improvements";
+import About from "@/components/About";
 
 export type Selection = "all" | Set<Key>;
+
+export type SiteMode = "ai" | "about";
 
 export default function Home() {
 	const lightTheme = createTheme({
@@ -29,6 +32,7 @@ export default function Home() {
 	});
 
 	const [mode, setMode] = useState<Selection>(new Set());
+	const [siteMode, setSiteMode] = useState<SiteMode>("ai");
 	const recRef = useRef<HTMLFormElement | null>(null);
 	const improvementsRef = useRef<HTMLFormElement | null>(null);
 	const quotesRef = useRef<HTMLFormElement | null>(null);
@@ -60,60 +64,64 @@ export default function Home() {
 		>
 			<NextUIProvider>
 				<div className={style.page}>
-					{/* <NavBar></NavBar> */}
-					<main className="lg:grid min-h-screen grid-cols-2 items-center ">
-						<Hero
-							mode={mode}
-							setMode={setMode}
-							handleModeChange={handleModeChange}
-						></Hero>
-						{[...mode][0] && (
-							<>
-								<div className="flex flex-col items-center justify-center w-full min-h-screen py-4">
-									<Dropdown>
-										<Dropdown.Button className="ml-2" light>
-											{[...mode!][0] ? (
-												<p className="text-2xl">{mode}</p>
-											) : (
-												<p className="text-2xl">Select your need</p>
-											)}
-										</Dropdown.Button>
-										<Dropdown.Menu
-											aria-label="Static Actions"
-											variant="flat"
-											selectionMode="single"
-											selectedKeys={mode}
-											onSelectionChange={(e) => setMode(e)}
-										>
-											<Dropdown.Item
-												className="mt-2"
-												key="LinkedIn recommendation"
+					<NavBar siteMode={siteMode} setSiteMode={setSiteMode}></NavBar>
+					{siteMode == "ai" ? (
+						<main className="lg:grid min-h-screen grid-cols-2 items-center ">
+							<Hero
+								mode={mode}
+								setMode={setMode}
+								handleModeChange={handleModeChange}
+							></Hero>
+							{[...mode][0] && (
+								<>
+									<div className="flex flex-col items-center justify-center w-full min-h-screen py-4">
+										<Dropdown>
+											<Dropdown.Button className="ml-2" light>
+												{[...mode!][0] ? (
+													<p className="text-2xl">{mode}</p>
+												) : (
+													<p className="text-2xl">Select your need</p>
+												)}
+											</Dropdown.Button>
+											<Dropdown.Menu
+												aria-label="Static Actions"
+												variant="flat"
+												selectionMode="single"
+												selectedKeys={mode}
+												onSelectionChange={(e) => setMode(e)}
 											>
-												LinkedIn recommendation
-											</Dropdown.Item>
-											<Dropdown.Item
-												className="my-2"
-												key="Suggest improvements"
-											>
-												Suggest improvements
-											</Dropdown.Item>
-											{/* <Dropdown.Item key="Instagram captions">
+												<Dropdown.Item
+													className="mt-2"
+													key="LinkedIn recommendation"
+												>
+													LinkedIn recommendation
+												</Dropdown.Item>
+												<Dropdown.Item
+													className="my-2"
+													key="Suggest improvements"
+												>
+													Suggest improvements
+												</Dropdown.Item>
+												{/* <Dropdown.Item key="Instagram captions">
 														Instagram captions
 													</Dropdown.Item> */}
-											<Dropdown.Item key="Quotes">Quotes</Dropdown.Item>
-										</Dropdown.Menu>
-									</Dropdown>
-									{[...mode!][0] == "LinkedIn recommendation" ? (
-										<Recommender ref={recRef}></Recommender>
-									) : [...mode!][0] == "Quotes" ? (
-										<Quotes ref={quotesRef}></Quotes>
-									) : (
-										<Improvements ref={improvementsRef}></Improvements>
-									)}
-								</div>
-							</>
-						)}
-					</main>
+												<Dropdown.Item key="Quotes">Quotes</Dropdown.Item>
+											</Dropdown.Menu>
+										</Dropdown>
+										{[...mode!][0] == "LinkedIn recommendation" ? (
+											<Recommender ref={recRef}></Recommender>
+										) : [...mode!][0] == "Quotes" ? (
+											<Quotes ref={quotesRef}></Quotes>
+										) : (
+											<Improvements ref={improvementsRef}></Improvements>
+										)}
+									</div>
+								</>
+							)}
+						</main>
+					) : (
+						<About />
+					)}
 				</div>
 			</NextUIProvider>
 		</NextThemesProvider>

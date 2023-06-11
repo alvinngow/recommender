@@ -18,6 +18,7 @@ import Hero from "@/components/Hero";
 import style from "../styles/Page.module.css";
 import Recommender from "@/components/Recommender";
 import Quotes from "@/components/Quotes";
+import Improvements from "@/components/Improvements";
 
 export type Selection = "all" | Set<Key>;
 
@@ -29,11 +30,14 @@ export default function Home() {
 
 	const [mode, setMode] = useState<Selection>(new Set());
 	const recRef = useRef<HTMLFormElement | null>(null);
+	const improvementsRef = useRef<HTMLFormElement | null>(null);
 	const quotesRef = useRef<HTMLFormElement | null>(null);
 
 	function handleModeChange() {
 		if ([...mode][0] == "LinkedIn recommendation") {
 			recRef.current!.scrollIntoView({ behavior: "smooth" });
+		} else if ([...mode][0] == "Suggest Improvements") {
+			improvementsRef.current!.scrollIntoView({ behavior: "smooth" });
 		} else if ([...mode][0] == "Quotes") {
 			quotesRef.current!.scrollIntoView({ behavior: "smooth" });
 		}
@@ -101,10 +105,10 @@ export default function Home() {
 									</Dropdown>
 									{[...mode!][0] == "LinkedIn recommendation" ? (
 										<Recommender ref={recRef}></Recommender>
+									) : [...mode!][0] == "Quotes" ? (
+										<Quotes ref={quotesRef}></Quotes>
 									) : (
-										[...mode!][0] == "Quotes" && (
-											<Quotes ref={quotesRef}></Quotes>
-										)
+										<Improvements ref={improvementsRef}></Improvements>
 									)}
 								</div>
 							</>

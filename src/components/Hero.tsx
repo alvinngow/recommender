@@ -19,13 +19,14 @@ import { Selection } from "@/app/page";
 import IconButton from "./IconButton";
 
 type HeroProps = {
-	mode: Selection | undefined;
+	mode: Selection;
 	setMode: React.Dispatch<React.SetStateAction<Selection>>;
 	handleModeChange: () => void;
 };
 
 function Hero(props: HeroProps) {
 	const dataText = "Re:cplus.AI";
+	console.log([...props.mode][0]);
 
 	return (
 		<div className={style.hero}>
@@ -41,14 +42,18 @@ function Hero(props: HeroProps) {
 					className={style["sub-header"]}
 				/>
 				<div className="flex items-center mt-2">
-					<Button
-						ghost
-						color="success"
-						onClick={() => props.setMode(new Set(["LinkedIn recommendation"]))}
-					>
-						<p>Get Started </p>
-						<ArrowRightCircleIcon className="h-6 w-6 ml-2"></ArrowRightCircleIcon>
-					</Button>
+					{![...props.mode][0] && (
+						<Button
+							ghost
+							color="success"
+							onClick={() =>
+								props.setMode(new Set(["LinkedIn recommendation"]))
+							}
+						>
+							<p>Get Started </p>
+							<ArrowRightCircleIcon className="h-6 w-6 ml-2"></ArrowRightCircleIcon>
+						</Button>
+					)}
 				</div>
 			</div>
 		</div>

@@ -300,7 +300,11 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 						</div>
 
 						<div className="col-span-2">
-							<Input ref={skillset} fullWidth label="Skillsets"></Input>
+							<Input
+								ref={skillset}
+								fullWidth
+								label="Skillsets (separated by commas)"
+							></Input>
 						</div>
 						{/* <ReCAPTCHA sitekey="" /> */}
 						<Button

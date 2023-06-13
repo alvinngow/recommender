@@ -66,7 +66,7 @@ const Quotes: React.ForwardRefRenderFunction<HTMLFormElement> = function (
 						></Input>
 						<Input
 							fullWidth
-							label="Areas for improvements"
+							label="Areas for improvements (separated by commas)"
 							onChange={(e) => setAspect(e.target.value)}
 						></Input>
 					</div>

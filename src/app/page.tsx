@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, Key, useState, LegacyRef } from "react";
+import React, { useRef, Key, useState, useCallback } from "react";
 import { analytics } from "./analytics";
 import { useEffect } from "react";
 
@@ -20,6 +20,7 @@ import Recommender from "@/components/Recommender";
 import Quotes from "@/components/Quotes";
 import Improvements from "@/components/Improvements";
 import About from "@/components/About";
+import PolygonMaker from "@/components/PolygonMaker";
 
 export type Selection = "all" | Set<Key>;
 
@@ -62,6 +63,7 @@ export default function Home() {
 	useEffect(() => {
 		analytics(window, document, "script", "dataLayer", "G-GMPFRNH8JJ");
 	});
+
 	return (
 		<NextThemesProvider
 			defaultTheme="system"
@@ -80,7 +82,7 @@ export default function Home() {
 								setMode={setMode}
 								handleModeChange={handleModeChange}
 							></Hero>
-							{[...mode][0] && (
+							{[...mode][0] ? (
 								<>
 									<div
 										className="flex flex-col items-center justify-center w-full min-h-screen py-4"
@@ -128,6 +130,10 @@ export default function Home() {
 										)}
 									</div>
 								</>
+							) : (
+								<div>
+									<PolygonMaker></PolygonMaker>
+								</div>
 							)}
 						</main>
 					) : (

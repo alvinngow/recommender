@@ -26,7 +26,12 @@ function About() {
 				<div className="w-full mt-4">
 					<a href="https://www.linkedin.com/company/recplusai/" target="_blank">
 						<button>
-							<Image src="/linkedin.svg" width={200} height={60}></Image>
+							<Image
+								src="/linkedin.svg"
+								width={200}
+								height={60}
+								alt="linkedin icon"
+							></Image>
 						</button>
 					</a>
 				</div>

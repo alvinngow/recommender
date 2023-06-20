@@ -9,9 +9,9 @@ function GeneratingPrompt(props: GenerateProps) {
 		<div className="flex flex-col items-center col-span-2">
 			<Loading color="currentColor" size="sm" />
 			{props.text ? (
-				<p className="pl-2">Please wait, generating a response for you!</p>
-			) : (
 				<p className="pl-2">{props.text}</p>
+			) : (
+				<p className="pl-2">Please wait, generating a response for you!</p>
 			)}
 		</div>
 	);

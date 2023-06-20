@@ -138,16 +138,21 @@ const Quotes: React.ForwardRefRenderFunction<HTMLFormElement, QuoteProps> =
 							);
 						})}
 
-						<div className="grid grid-cols-2 col-span-2 mt-6 ">
+						<div className="grid grid-cols-2 col-span-2 mt-6 gap-2">
 							<Button
-								className="mr-2"
+								className="col-span-2 lg:col-span-1"
 								onClick={() => setSubmitted(false)}
 								color="success"
 								flat
 							>
 								New Quote
 							</Button>
-							<Button onClick={() => onSubmit()} color="success" flat>
+							<Button
+								className=" col-span-2 lg:col-span-1"
+								onClick={() => onSubmit()}
+								color="success"
+								flat
+							>
 								Regenerate
 							</Button>
 							<SocialWidget></SocialWidget>

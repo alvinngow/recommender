@@ -347,9 +347,9 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 								</div>
 							);
 						})}
-						<div className="grid grid-cols-2 mt-4 min-w-[70%]">
+						<div className="grid grid-cols-2 mt-4 min-w-[70%]  gap-2">
 							<Button
-								className="col-span-2"
+								className="col-span-2 lg:col-span-1"
 								onClick={() => setSubmitted(false)}
 								color="success"
 								flat
@@ -357,7 +357,7 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 								New Recommendation
 							</Button>
 							<Button
-								className="col-span-2 mt-2"
+								className="col-span-2 lg:col-span-1"
 								onClick={() => onSubmit()}
 								color="success"
 								flat

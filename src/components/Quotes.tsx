@@ -4,6 +4,7 @@ import GeneratingPrompt from "./common/GeneratingPrompt";
 import { Button, Dropdown, Input, Textarea } from "@nextui-org/react";
 import { getPrompt } from "@/helper";
 import { CreateChatCompletionResponseChoicesInner } from "openai";
+import SocialWidget from "./common/SocialWidget";
 
 type QuoteProps = {
 	submitted: boolean;
@@ -43,7 +44,7 @@ const Quotes: React.ForwardRefRenderFunction<HTMLFormElement, QuoteProps> =
 		return (
 			<form
 				ref={ref}
-				className="grid 2xl:grid-cols-2 items-center gap-4 mx-8 lg:mx-24 p-4 min-w-[290px] max-w-[600px] min-h-[260px] max-h-[700px] bg-white rounded-xl"
+				className="grid 2xl:grid-cols-2 items-center gap-4 mx-8 lg:mx-24 p-4 min-w-[290px] max-w-[600px] min-h-[260px] bg-white rounded-xl"
 				onSubmit={onSubmit}
 			>
 				{!submitted && (
@@ -137,7 +138,7 @@ const Quotes: React.ForwardRefRenderFunction<HTMLFormElement, QuoteProps> =
 							);
 						})}
 
-						<div className="flex justify-center col-span-2 mt-6 ">
+						<div className="grid grid-cols-2 col-span-2 mt-6 ">
 							<Button
 								className="mr-2"
 								onClick={() => setSubmitted(false)}
@@ -149,6 +150,7 @@ const Quotes: React.ForwardRefRenderFunction<HTMLFormElement, QuoteProps> =
 							<Button onClick={() => onSubmit()} color="success" flat>
 								Regenerate
 							</Button>
+							<SocialWidget></SocialWidget>
 						</div>
 					</div>
 				)}

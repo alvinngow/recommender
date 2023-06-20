@@ -19,6 +19,7 @@ import GeneratingPrompt from "./common/GeneratingPrompt";
 import { getPrompt } from "@/helper";
 import { CreateChatCompletionResponseChoicesInner } from "openai";
 import ReCAPTCHA from "react-google-recaptcha";
+import SocialWidget from "./common/SocialWidget";
 
 type RecProps = {
 	ref: LegacyRef<HTMLFormElement> | null;
@@ -363,6 +364,7 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 							>
 								Regenerate
 							</Button>
+							<SocialWidget></SocialWidget>
 						</div>
 					</div>
 				)}

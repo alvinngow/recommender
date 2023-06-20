@@ -89,17 +89,26 @@ export default function Home() {
 								<>
 									<div
 										className="flex flex-col items-center justify-center w-full min-h-screen py-4"
-										style={{ backgroundImage: `url(/bg.png)` }}
+										style={{
+											backgroundImage: `url(/bg_2.jpg)`,
+											backgroundSize: "cover",
+											backgroundPositionX: "center",
+										}}
 										ref={dropDownRef}
 									>
 										<Dropdown>
-											<Dropdown.Button className="ml-2" light>
-												{[...mode!][0] ? (
-													<p className="text-2xl">{mode}</p>
-												) : (
-													<p className="text-2xl">Select your need</p>
-												)}
-											</Dropdown.Button>
+											<div
+												className="rounded-2xl mb-2"
+												style={{ backgroundColor: "rgba(255, 255, 255, 0.4)" }}
+											>
+												<Dropdown.Button className="ml-2" light>
+													{[...mode!][0] ? (
+														<p className="text-2xl text-black">{mode}</p>
+													) : (
+														<p className="text-2xl">Select your need</p>
+													)}
+												</Dropdown.Button>
+											</div>
 											<Dropdown.Menu
 												aria-label="Static Actions"
 												variant="flat"
@@ -159,7 +168,11 @@ export default function Home() {
 							) : (
 								<div
 									className="lg:block lg:min-h-screen none"
-									style={{ backgroundImage: `url(/bg.png)` }}
+									style={{
+										backgroundImage: `url(/bg_2.jpg)`,
+										backgroundSize: "cover",
+										backgroundPositionX: "center",
+									}}
 								></div>
 							)}
 						</main>

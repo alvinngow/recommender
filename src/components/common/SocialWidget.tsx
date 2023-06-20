@@ -1,13 +1,27 @@
+import React from "react";
 import Image from "next/image";
+import Alert from "./Alert";
 
 type PropsType = {};
 
 function SocialWidget() {
+	const [showAlert, setShowAlert] = React.useState(false);
+
 	return (
 		<div className="flex justify-between w-full col-span-2 bg-white p-2 items-center shadow-lg mt-2 rounded-lg">
+			<Alert showAlert={showAlert}></Alert>
 			<p className="font-medium">Love you see? Share it!</p>
 			<div className="flex">
-				<a href="https://www.linkedin.com/" target="_blank">
+				<a
+					href="https://www.linkedin.com/"
+					target="_blank"
+					onClick={() => {
+						setShowAlert(true);
+						navigator.clipboard.writeText(
+							"I enjoyed using recplus.ai to generate commendations for my co-workers!"
+						);
+					}}
+				>
 					<Image src="/social-linkedin.svg" width={48} height={48}></Image>
 				</a>
 				<a

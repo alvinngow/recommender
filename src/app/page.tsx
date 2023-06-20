@@ -86,6 +86,7 @@ export default function Home() {
 								<>
 									<div
 										className="flex flex-col items-center justify-center w-full min-h-screen py-4"
+										style={{ backgroundImage: `url(/bg.png)` }}
 										ref={dropDownRef}
 									>
 										<Dropdown>
@@ -131,9 +132,10 @@ export default function Home() {
 									</div>
 								</>
 							) : (
-								<div>
-									<PolygonMaker></PolygonMaker>
-								</div>
+								<div
+									className="min-h-screen"
+									style={{ backgroundImage: `url(/bg.png)` }}
+								></div>
 							)}
 						</main>
 					) : (

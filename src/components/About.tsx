@@ -3,7 +3,7 @@ import Image from "next/image";
 
 function About() {
 	return (
-		<div className="flex min-h-screen justify-center pt-24 lg:p-24">
+		<div className={`flex min-h-screen justify-center pt-24 px-4 lg:p-24`}>
 			<div className="flex items-center flex-col lg:w-1/2 px-2 text-left">
 				<p className="text-4xl text-justify">About Us</p>
 				<p className="mt-4 text-lg lg:text-2xl text-justify">
@@ -24,10 +24,11 @@ function About() {
 					be the most important Cs to stand out in the future.
 				</p>
 				<div className="w-full mt-4">
+					{/* <p>Follow Us on LinkedIn!</p> */}
 					<a href="https://www.linkedin.com/company/recplusai/" target="_blank">
 						<button>
 							<Image
-								src="/linkedin.svg"
+								src="/linkedin_3.png"
 								width={200}
 								height={60}
 								alt="linkedin icon"

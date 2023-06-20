@@ -1,22 +1,10 @@
 import { useEffect, useState } from "react";
 import style from "../styles/Hero.module.css";
 import Typewriter from "./Typewriter";
-import Image from "next/image";
-import {
-	createTheme,
-	NextUIProvider,
-	Input,
-	useTheme,
-	Switch,
-	Dropdown,
-	Textarea,
-	Button,
-	Loading,
-} from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { ArrowRightCircleIcon } from "@heroicons/react/24/outline";
 
 import { Selection } from "@/app/page";
-import IconButton from "./IconButton";
 
 type HeroProps = {
 	mode: Selection;

@@ -105,7 +105,11 @@ export default function Home() {
 												variant="flat"
 												selectionMode="single"
 												selectedKeys={mode}
-												onSelectionChange={(e) => setMode(e)}
+												onSelectionChange={(e) => {
+													setMode(e);
+													setSubmitted(false);
+													setLoading(false);
+												}}
 											>
 												<Dropdown.Item
 													className="mt-2"

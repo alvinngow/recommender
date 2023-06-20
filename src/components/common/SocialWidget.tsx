@@ -21,25 +21,45 @@ function SocialWidget() {
 						);
 					}}
 				>
-					<Image src="/social-linkedin.svg" width={48} height={48}></Image>
+					<Image
+						src="/social-linkedin.svg"
+						width={48}
+						height={48}
+						alt="linkedin logo"
+					></Image>
 				</a>
 				<a
 					href="https://t.me/share/url?url=https://www.recplus.ai&text=I enjoyed using recplus.ai to generate commendations for my co-workers!"
 					target="_blank"
 				>
-					<Image src="/social-telegram.svg" width={48} height={48}></Image>
+					<Image
+						src="/social-telegram.svg"
+						width={48}
+						height={48}
+						alt="telegram logo"
+					></Image>
 				</a>
 				<a
 					href="https://twitter.com/intent/tweet?text=I enjoyed using recplus.ai to generate commendations for my co-workers!"
 					target="_blank"
 				>
-					<Image src="/social-twitter.svg" width={48} height={48}></Image>
+					<Image
+						src="/social-twitter.svg"
+						width={48}
+						height={48}
+						alt="twitter logo"
+					></Image>
 				</a>
 				<a
 					href="whatsapp://send?text=I enjoyed using recplus.ai to generate commendations for my co-workers!"
 					target="_blank"
 				>
-					<Image src="/social-whatsapp.svg" width={48} height={48}></Image>
+					<Image
+						src="/social-whatsapp.svg"
+						width={48}
+						height={48}
+						alt="whatsapp logo"
+					></Image>
 				</a>
 			</div>
 		</div>

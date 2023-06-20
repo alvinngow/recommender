@@ -39,6 +39,9 @@ export default function Home() {
 	const quotesRef = useRef<HTMLFormElement | null>(null);
 	const dropDownRef = useRef<HTMLDivElement>(null);
 
+	const [submitted, setSubmitted] = React.useState<boolean>(false);
+	const [loading, setLoading] = React.useState<boolean>(false);
+
 	function handleModeChange() {
 		if ([...mode][0] == "LinkedIn recommendation") {
 			recRef.current!.scrollIntoView({ behavior: "smooth" });
@@ -123,11 +126,29 @@ export default function Home() {
 											</Dropdown.Menu>
 										</Dropdown>
 										{[...mode!][0] == "LinkedIn recommendation" ? (
-											<Recommender ref={recRef}></Recommender>
+											<Recommender
+												submitted={submitted}
+												setSubmitted={setSubmitted}
+												loading={loading}
+												setLoading={setLoading}
+												ref={recRef}
+											></Recommender>
 										) : [...mode!][0] == "Quotes" ? (
-											<Quotes ref={quotesRef}></Quotes>
+											<Quotes
+												submitted={submitted}
+												setSubmitted={setSubmitted}
+												loading={loading}
+												setLoading={setLoading}
+												ref={quotesRef}
+											></Quotes>
 										) : (
-											<Improvements ref={improvementsRef}></Improvements>
+											<Improvements
+												submitted={submitted}
+												setSubmitted={setSubmitted}
+												loading={loading}
+												setLoading={setLoading}
+												ref={improvementsRef}
+											></Improvements>
 										)}
 									</div>
 								</>

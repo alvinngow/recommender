@@ -22,12 +22,14 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 type RecProps = {
 	ref: LegacyRef<HTMLFormElement> | null;
+	submitted: boolean;
+	setSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
+	loading: boolean;
+	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 	function (props: RecProps, ref) {
-		const [submitted, setSubmitted] = React.useState(false);
-
 		const [selected, setSelected] = React.useState<Selection>(
 			new Set(["Medium"])
 		);
@@ -38,7 +40,6 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 		const [relationship, setRelationship] = React.useState<Selection>(
 			new Set(["Managed directly"])
 		);
-		const [loading, setLoading] = React.useState(false);
 		const [generatedArr, setGeneratedArr] = React.useState<
 			CreateChatCompletionResponseChoicesInner[]
 		>([]);
@@ -47,6 +48,8 @@ const Recommender: React.ForwardRefRenderFunction<HTMLFormElement, RecProps> =
 		const companyName = useRef<HTMLInputElement | null>(null);
 		const recName = useRef<HTMLInputElement | null>(null);
 		const skillset = useRef<HTMLInputElement | null>(null);
+
+		const { submitted, setSubmitted, loading, setLoading, ...others } = props;
 
 		function promptMaker() {
 			const rs = [...relationship][0];

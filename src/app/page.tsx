@@ -158,7 +158,7 @@ export default function Home() {
 								</>
 							) : (
 								<div
-									className="min-h-screen"
+									className="lg:block lg:min-h-screen none"
 									style={{ backgroundImage: `url(/bg.png)` }}
 								></div>
 							)}

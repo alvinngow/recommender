@@ -8,8 +8,8 @@ function SocialWidget() {
 	const [showAlert, setShowAlert] = React.useState(false);
 
 	return (
-		<div className="flex justify-between w-full col-span-2 bg-white p-2 items-center shadow-lg mt-2 rounded-lg">
-			<p className="font-medium">Love you see? Share it!</p>
+		<div className="flex justify-between w-full col-span-2 p-2 items-center mt-2">
+			<p className="font-medium">Love what you see? Share it!</p>
 			<div className="flex">
 				<a
 					href="https://www.linkedin.com/"

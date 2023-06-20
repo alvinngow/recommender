@@ -28,7 +28,7 @@ function About() {
 					<a href="https://www.linkedin.com/company/recplusai/" target="_blank">
 						<button>
 							<Image
-								src="/linkedin_3.png"
+								src="/linkedin.svg"
 								width={200}
 								height={60}
 								alt="linkedin icon"

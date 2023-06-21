@@ -44,7 +44,7 @@ const Quotes: React.ForwardRefRenderFunction<HTMLFormElement, QuoteProps> =
 		return (
 			<form
 				ref={ref}
-				className="grid 2xl:grid-cols-2 items-center gap-4 mx-8 lg:mx-24 p-4 min-w-[290px] max-w-[600px] min-h-[260px] bg-opacity-70 bg-white rounded-xl"
+				className="grid 2xl:grid-cols-2 items-center gap-4 mx-8 lg:mx-24 p-4 min-w-[290px] max-w-[600px] min-h-[260px] bg-white rounded-xl"
 				onSubmit={onSubmit}
 			>
 				{!submitted && (

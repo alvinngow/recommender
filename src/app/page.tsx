@@ -51,10 +51,6 @@ export default function Home() {
 			quotesRef.current!.scrollIntoView({ behavior: "smooth" });
 		}
 		if ([...mode][0]) {
-			console.log(
-				"🚀 ~ file: page.tsx:51 ~ handleModeChange ~ dropDownRef:",
-				dropDownRef
-			);
 			dropDownRef.current!.scrollIntoView({ behavior: "smooth" });
 		}
 	}
@@ -90,7 +86,7 @@ export default function Home() {
 									<div
 										className="flex flex-col items-center justify-center w-full min-h-screen py-4"
 										style={{
-											backgroundImage: `url(/bg_2.jpg)`,
+											backgroundImage: `url(/bg_3.jpg)`,
 											backgroundSize: "cover",
 											backgroundPositionX: "center",
 										}}
@@ -99,7 +95,7 @@ export default function Home() {
 										<Dropdown>
 											<div
 												className="rounded-2xl mb-2"
-												style={{ backgroundColor: "rgba(255, 255, 255, 0.4)" }}
+												style={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
 											>
 												<Dropdown.Button className="ml-2" light>
 													{[...mode!][0] ? (
@@ -169,7 +165,7 @@ export default function Home() {
 								<div
 									className="lg:block lg:min-h-screen none"
 									style={{
-										backgroundImage: `url(/bg_2.jpg)`,
+										backgroundImage: `url(/bg_3.jpg)`,
 										backgroundSize: "cover",
 										backgroundPositionX: "center",
 									}}
